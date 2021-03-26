@@ -2,6 +2,8 @@ from __future__ import print_function
 
 
 import inputs
+import copy
+import timeit
 
 EVENT_ABB = (
     # D-PAD, aka HAT
@@ -9,10 +11,10 @@ EVENT_ABB = (
     ('Absolute-ABS_HAT0Y', 'HY'),
 
     # Face Buttons
-    ('Key-BTN_NORTH', 'N'),
-    ('Key-BTN_EAST', 'E'),
-    ('Key-BTN_SOUTH', 'S'),
-    ('Key-BTN_WEST', 'W'),
+    ('Key-BTN_NORTH', 'Y'),
+    ('Key-BTN_EAST', 'B'),
+    ('Key-BTN_SOUTH', 'A'),
+    ('Key-BTN_WEST', 'X'),
 
     # Other buttons
     ('Key-BTN_THUMBL', 'THL'),
@@ -50,6 +52,8 @@ class JSTest(object):
         self.old_abs_state = {}
         self.abbrevs = dict(abbrevs)
         self.inputs = {}
+        self.enabled = 0
+        self.autonomous = 0
         i = 0
         for key, value in self.abbrevs.items():
             if key.startswith('Absolute'):
@@ -104,10 +108,10 @@ class JSTest(object):
                 return
         if event.ev_type == 'Key':
             self.old_btn_state[abbv] = self.btn_state[abbv]
-            self.btn_state[abbv] = event.state
+            self.btn_state[abbv] = (event.state)
         if event.ev_type == 'Absolute':
             self.old_abs_state[abbv] = self.abs_state[abbv]
-            self.abs_state[abbv] = event.state
+            self.abs_state[abbv] = (event.state)
         self.output_state(event.ev_type, abbv)
 
     def format_state(self):
@@ -118,6 +122,10 @@ class JSTest(object):
 
         for key, value in self.btn_state.items():
             output_string += key + ':' + str(value) + ' '
+
+        output_string += "EN: " + str(self.enabled) + ' '
+
+        output_string += "AE: " + str(self.autonomous) + ' '
 
         return output_string
 
@@ -145,12 +153,24 @@ class JSTest(object):
         for event in events:
             self.process_event(event)
 
+    def enable(self):
+        self.enabled = 1
+
+    def disable(self):
+        self.enabled = 0
+
+    def enable_auto(self):
+        self.autonomous = 1
+
+    def disable_auto(self):
+        self.autonomous = 0
 
 def main():
     """Process all events forever."""
     jstest = JSTest()
     while 1:
         jstest.process_events()
+        
 
 
 if __name__ == "__main__":
