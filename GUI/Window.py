@@ -1,11 +1,10 @@
 import tkinter
 from tkinter import *
+from input import Input_handler
 
 class Window():
 
     top = tkinter.Tk()
-    enabled = 0
-    autonomous = 0
 
     def __init__(self):
         pass
@@ -19,35 +18,29 @@ class Window():
         test.pack()
         test = Button(self.top, text="Teleop", command=self.teleop_trigger)
         test.pack()
-        test = Button(self.top, text="Debug: Print state", command=self.print_state)
-        test.pack()
         self.top.bind('f', self.f)
         self.top.bind('<space>', self.disable)
         self.top.mainloop()
 
     def enable(self, event=None):
-        self.enabled = 1
-        print(self.enabled)
+        Input_handler.enabled = 1
 
     def disable(self, event=None):
-        self.enabled = 0
-        print(self.enabled)
+        Input_handler.enabled = 0
 
     def autonomous_trigger(self, event=None):
-        self.autonomous = 1
-        print(self.autonomous)
+        Input_handler.autonomous = 1
 
     def teleop_trigger(self, event=None):
-        self.autonomous= 0
-        print(self.autonomous)
+        Input_handler.autonomous= 0
 
-    def print_state(self, event=None):
-        print("enabled: "+str(self.enabled))
-        print("autonomous: " + str(self.autonomous))
-
-    def f(self, event=None):
-        print('f to pay respecs')
+def main():
+    """Process all events forever."""
+    win = Window()
+    jstest = Input_handler.JSTest()
+    while 1:
+        win.mainloop()
+        jstest.process_events()
 
 if __name__ == '__main__':
-    win = Window()
-    win.mainloop()
+    main()

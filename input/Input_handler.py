@@ -170,8 +170,6 @@ def main():
     jstest = JSTest()
     while 1:
         jstest.process_events()
-        
-
 
 if __name__ == "__main__":
     main()
