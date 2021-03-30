@@ -5,6 +5,7 @@ class Window():
 
     top = tkinter.Tk()
     enabled = 0
+    autonomous = 0
 
     def __init__(self):
         pass
@@ -14,7 +15,11 @@ class Window():
         test.pack()
         test = Button(self.top, text = "Disable", command = self.disable)
         test.pack()
-        test = Button(self.top, text="Tare", command=self.tare)
+        test = Button(self.top, text="autonomous", command=self.autonomous_trigger)
+        test.pack()
+        test = Button(self.top, text="Teleop", command=self.teleop_trigger)
+        test.pack()
+        test = Button(self.top, text="Debug: Print state", command=self.print_state)
         test.pack()
         self.top.bind('f', self.f)
         self.top.bind('<space>', self.disable)
@@ -28,11 +33,20 @@ class Window():
         self.enabled = 0
         print(self.enabled)
 
+    def autonomous_trigger(self, event=None):
+        self.autonomous = 1
+        print(self.autonomous)
+
+    def teleop_trigger(self, event=None):
+        self.autonomous= 0
+        print(self.autonomous)
+
+    def print_state(self, event=None):
+        print("enabled: "+str(self.enabled))
+        print("autonomous: " + str(self.autonomous))
+
     def f(self, event=None):
         print('f to pay respecs')
-
-    def tare(self, event=None):
-        self.enabled = 0
 
 if __name__ == '__main__':
     win = Window()
