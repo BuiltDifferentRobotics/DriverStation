@@ -7,6 +7,8 @@ class Window():
     top = tkinter.Tk()
 
     joystick = IntVar(top)
+    jstest = Input_Handler.JSTest()
+    string_var = StringVar(self.top)
 
     def __init__(self):
         pass
@@ -21,28 +23,27 @@ class Window():
         test = Button(self.top, text="Teleop", command=self.teleop_trigger)
         test.pack()
         self.create_scale()
-        var = StringVar(self.top)
-        var.set("Enabled: "+str(Input_Handler.enabled)+" \n Autonomous: "+str(Input_Handler.autonomous))
-        label = Label(self.top, textvariable=var, relief=RAISED)
+        self.string_var.set("Enabled: "+str(jstest.enabled)+" \n Autonomous: "+str(jstest.autonomous))
+        label = Label(self.top, textvariable=self.string_var, relief=RAISED)
         label.pack()
         self.top.bind('<space>', self.disable)
         self.top.mainloop()
 
     def enable(self, event=None):
-        Input_Handler.enabled = 1
-        var.set("Enabled: "+str(Input_Handler.enabled)+" \n Autonomous: "+str(Input_Handler.autonomous))
+        jstest.enabled = 1
+        self.string_var.set("Enabled: "+str(jstest.enabled)+" \n Autonomous: "+str(jstest.autonomous))
 
     def disable(self, event=None):
-        Input_Handler.enabled = 0
-        var.set("Enabled: "+str(Input_Handler.enabled)+" \n Autonomous: "+str(Input_Handler.autonomous))
+        jstest.enabled = 0
+        self.string_var.set("Enabled: "+str(jstest.enabled)+" \n Autonomous: "+str(jstest.autonomous))
 
     def autonomous_trigger(self, event=None):
-        Input_Handler.autonomous = 1
-        var.set("Enabled: "+str(Input_Handler.enabled)+" \n Autonomous: "+str(Input_Handler.autonomous))
+        jstest.autonomous = 1
+        self.string_var.set("Enabled: "+str(jstest.enabled)+" \n Autonomous: "+str(jstest.autonomous))
 
     def teleop_trigger(self, event=None):
-        Input_Handler.autonomous= 0
-        var.set("Enabled: "+str(Input_Handler.enabled)+" \n Autonomous: "+str(Input_Handler.autonomous))
+        jstest.autonomous= 0
+        self.string_var.set("Enabled: "+str(jstest.enabled)+" \n Autonomous: "+str(jstest.autonomous))
 
     def create_scale(self, event=None):
         self.joystick.set(16)
@@ -55,10 +56,9 @@ class Window():
 def main():
     """Process all events forever."""
     win = Window()
-    jstest = Input_Handler.JSTest()
     while 1:
         win.mainloop()
-        jstest.process_events()
+        win.jstest.process_events()
 
 if __name__ == '__main__':
     main()
