@@ -40,8 +40,7 @@ EVENT_ABB = (
 
 # This is to reduce noise from the PlayStation controllers
 # For the Xbox controller, you can set this to 0
-MIN_ABS_DIFFERENCE = 5
-
+MIN_ABS_DIFFERENCE = 0
 
 class JSTest(object):
     """Simple joystick test class."""
