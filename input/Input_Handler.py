@@ -152,18 +152,6 @@ class JoystickI(object):
         for event in events:
             self.process_event(event)
 
-    def enable(self):
-        self.enabled = 1
-
-    def disable(self):
-        self.enabled = 0
-
-    def enable_auto(self):
-        self.autonomous = 1
-
-    def disable_auto(self):
-        self.autonomous = 0
-
 def main():
     """Process all events forever."""
     jstest = JoystickI()
