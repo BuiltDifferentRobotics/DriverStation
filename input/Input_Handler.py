@@ -42,7 +42,7 @@ EVENT_ABB = (
 # For the Xbox controller, you can set this to 0
 MIN_ABS_DIFFERENCE = 0
 
-class JSTest(object):
+class JoystickI(object):
     """Simple joystick test class."""
     def __init__(self, gamepad=None, abbrevs=EVENT_ABB):
         self.btn_state = {}
@@ -166,7 +166,7 @@ class JSTest(object):
 
 def main():
     """Process all events forever."""
-    jstest = JSTest()
+    jstest = JoystickI()
     while 1:
         jstest.process_events()
 
