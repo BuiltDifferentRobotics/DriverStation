@@ -16,21 +16,22 @@ class Window():
         pass
 
     def mainloop(self):
+        test = Button(self.top, text="Enable", command=self.enable)
+        test.pack()
+        test = Button(self.top, text="Disable", command=self.disable)
+        test.pack()
+        test = Button(self.top, text="autonomous", command=self.autonomous_trigger)
+        test.pack()
+        test = Button(self.top, text="Teleop", command=self.teleop_trigger)
+        test.pack()
+
+        self.string_var.set(
+            "Enabled: " + str(self.joystickInput.enabled) + " \n Autonomous: " + str(self.joystickInput.autonomous))
+        label = Label(self.top, textvariable=self.string_var, relief=RAISED)
+        label.pack()
         while True:
             self.joystickInput.process_events()
 
-            test = Button(self.top, text = "Enable", command = self.enable)
-            test.pack()
-            test = Button(self.top, text = "Disable", command = self.disable)
-            test.pack()
-            test = Button(self.top, text="autonomous", command=self.autonomous_trigger)
-            test.pack()
-            test = Button(self.top, text="Teleop", command=self.teleop_trigger)
-            test.pack()
-
-            self.string_var.set("Enabled: " + str(self.joystickInput.enabled) + " \n Autonomous: " + str(self.joystickInput.autonomous))
-            label = Label(self.top, textvariable=self.string_var, relief=RAISED)
-            label.pack()
             self.top.bind('<space>', self.disable)
 
 
