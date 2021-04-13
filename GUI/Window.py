@@ -4,8 +4,7 @@ from tkinter import *
 import multiprocessing
 
 
-from input import Input_Handler
-
+from input import Input_Handl
 
 class Window():
 
@@ -57,11 +56,6 @@ class Window():
         self.joystickInput.autonomous= 0
         self.string_var.set("Enabled: " + str(self.joystickInput.enabled) + " \n Autonomous: " + str(self.joystickInput.autonomous))
 
-def main():
-    """Process all events forever."""
-    win = Window()
-    win.mainloop()
-
 def run_input_handler():
     while(1):
         print("input handler thread runs\n")
@@ -72,8 +66,12 @@ def run_window():
         print("window\n")
 
 if __name__ == '__main__':
-    input_process = multiprocessing.Process(target=run_input_handler)
-    window_process=multiprocessing.Process(target=run_window)
+    #making a window
+    window = Window()
+    input = window.joystickInput
+
+    input_process = multiprocessing.Process(target=window.joystickInput.main)
+    window_process=multiprocessing.Process(target=window.mainloop)
     input_process.start()
     window_process.start()
     input_process.join()
