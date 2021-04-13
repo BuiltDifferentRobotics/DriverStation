@@ -1,7 +1,8 @@
 import tkinter
 from tkinter import *
 
-import threading
+import multiprocessing
+
 
 from input import Input_Handler
 
@@ -61,44 +62,19 @@ def main():
     win = Window()
     win.mainloop()
 
-class InputThread (threading.Thread):
-    def __init__(self, threadID, name, counter):
-        threading.Thread.__init__(self)
-        self.threadID = threadID
-        self.name = name
-        self.counter = counter
-
-    def run(self):
-        print("Starting " + self.name)
-        run_input_handler(self.name)
-        print("Exiting" + self.name)
-
-
-class WindowThread(threading.Thread):
-    def __init__(self, threadID, name, counter):
-        threading.Thread.__init__(self)
-        self.threadID = threadID
-        self.name = name
-        self.counter = counter
-
-    def run(self):
-        print("Starting " + self.name)
-        run_window(self.name)
-        print("Exiting" + self.name)
-
-def run_input_handler(thread):
+def run_input_handler():
     while(1):
         print("input handler thread runs\n")
-        #indow.joystickInput.process_events()
+        #Window.joystickInput.process_events()
 
-def run_window(thread):
-    #Window.main()
+def run_window():
     while(1):
-        print("window thread runs \n")
+        print("window\n")
 
 if __name__ == '__main__':
-    thread1 = InputThread(1, "thread1", 1)
-    thread2 = WindowThread(2, "thread2", 2)
-
-    thread1.start()
-    thread2.start()
+    input_process = multiprocessing.Process(target=run_input_handler)
+    window_process=multiprocessing.Process(target=run_window)
+    input_process.start()
+    window_process.start()
+    input_process.join()
+    window_process.join()
