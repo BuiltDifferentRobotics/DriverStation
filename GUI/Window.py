@@ -4,7 +4,7 @@ from tkinter import *
 import multiprocessing
 
 
-from input import Input_Handl
+from input import Input_Handler
 
 class Window():
 
@@ -71,7 +71,7 @@ if __name__ == '__main__':
     input = window.joystickInput
 
     input_process = multiprocessing.Process(target=window.joystickInput.main)
-    window_process=multiprocessing.Process(target=window.mainloop)
+    window_process = multiprocessing.Process(target=window.mainloop)
     input_process.start()
     window_process.start()
     input_process.join()

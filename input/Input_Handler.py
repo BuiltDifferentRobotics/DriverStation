@@ -1,6 +1,5 @@
 from __future__ import print_function
 
-
 import inputs
 import copy
 import timeit
@@ -155,8 +154,11 @@ class JoystickI(object):
 def main():
     """Process all events forever."""
     jstest = JoystickI()
-    while 1:
+    enabled = 1;
+    while enabled:
         jstest.process_events()
+
+
 
 if __name__ == "__main__":
     main()
