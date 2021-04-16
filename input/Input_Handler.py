@@ -1,5 +1,5 @@
 from __future__ import print_function
-
+from keyboard import keyboard
 
 import inputs
 import copy
@@ -155,8 +155,15 @@ class JoystickI(object):
 def main():
     """Process all events forever."""
     jstest = JoystickI()
+    enabled = True;
     while 1:
-        jstest.process_events()
+        while enabled:
+            jstest.process_events()
+            enabled = not keyboard.is_pressed("space")
+        input()
+        enabled = True
+
+
 
 if __name__ == "__main__":
     main()
