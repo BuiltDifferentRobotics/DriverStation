@@ -117,10 +117,10 @@ class JoystickI(object):
         """Format the state."""
         output_string = ""
         for key, value in self.abs_state.items():
-            output_string += key + ':' + '{:>4}'.format(str(value) + ' ')
+            output_string += " "+key + ': ' + '{:>4}'.format(str(value) + ' ')
 
         for key, value in self.btn_state.items():
-            output_string += key + ':' + str(value) + ' '
+            output_string += " "+key + ': ' + str(value) + ' '
 
         output_string += "EN: " + str(self.enabled) + ' '
 
