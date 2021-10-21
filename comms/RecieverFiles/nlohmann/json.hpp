@@ -305,6 +305,7 @@ inline bool operator<(const value_t lhs, const value_t rhs) noexcept
 #if defined(__INTEL_COMPILER) && defined(__INTEL_COMPILER_UPDATE) && defined(__ICL)
     #define JSON_HEDLEY_INTEL_CL_VERSION JSON_HEDLEY_VERSION_ENCODE(__INTEL_COMPILER, __INTEL_COMPILER_UPDATE, 0)
 #endif
+
 #if defined(JSON_HEDLEY_INTEL_CL_VERSION_CHECK)
     #undef JSON_HEDLEY_INTEL_CL_VERSION_CHECK
 #endif
@@ -581,7 +582,6 @@ inline bool operator<(const value_t lhs, const value_t rhs) noexcept
 #else
     #define JSON_HEDLEY_TINYC_VERSION_CHECK(major,minor,patch) (0)
 #endif
-
 
 #if defined(JSON_HEDLEY_DMC_VERSION)
     #undef JSON_HEDLEY_DMC_VERSION
