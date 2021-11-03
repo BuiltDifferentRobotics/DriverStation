@@ -1,6 +1,7 @@
 #include "nlohmann/json.hpp"
 #include <string>
 #include <iostream>
+#include <sstream>
 using json = nlohmann::json;
 
 struct Example {
@@ -25,11 +26,16 @@ void from_json(const json& j, Example& p) {
     j.at("v").get_to(p.v);
 }
 int main() {
-    Example ex("hoHohoHo", 3, {1, 2, 3});
+    Example ex("hoHohoHo", 3, {2, 2, 3});
     json j;
     to_json(j, ex);
+    std::stringstream message;
+    message << j;
+    json j2;
+    message >> j2;
+    //std::cout << j2 << std::endl;
     Example ex2;
-    from_json(j, ex2);
+    from_json(j2, ex2);
     std::cout << ex2.l << std::endl;
     return 0;
 }
