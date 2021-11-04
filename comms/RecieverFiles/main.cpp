@@ -36,6 +36,6 @@ int main() {
     //std::cout << j2 << std::endl;
     Example ex2;
     from_json(j2, ex2);
-    std::cout << ex2.l << std::endl;
+    //std::cout << ex2.l << ex2.n << ex2.v << std::endl;
     return 0;
 }
