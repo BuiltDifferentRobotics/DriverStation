@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
+import org.json.simple.JSONObject;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
@@ -38,18 +38,30 @@ public class HelloApplication extends Application {
             // Set the label from a variable?
 
             // Take in encoder data and display into screen
-
+            // Swap some public variable from 0 to 1
+            // Create Synchronous Task
             // Action
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     // Accepts action even that is passed through this function
-                    System.out.println("Server turning on:");
                     // Action that we want is to turn on the server connection
                     // To turn on the robot?
+
+                    SynchronousJson synchronousJson = new SynchronousJson();
+                    Server server = new Server();
+
+                    Thread jsonThread = new Thread(synchronousJson);
+                    Thread serverThread = new Thread(server);
+
+                    // If class only used once, maybe use Lambda Expression?
+                    serverThread.start();
+                    try { Thread.sleep(10); } catch(Exception e) { }
+                    jsonThread.start();
+
+                    // Use synchronized keyword for the change variable class
                 }
             });
-
 
             Scene scene = new Scene(root, 1000, 600);
 
@@ -64,6 +76,6 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }
